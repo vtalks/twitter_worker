@@ -5,7 +5,7 @@ import requests
 
 def main(argv):
     # get a random talk
-    r = requests.get('https://vtalks.net/api/talk/')
+    r = requests.get('https://vtalks.net/api/random-talk')
 
     print(r.json())
 
