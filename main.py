@@ -1,8 +1,13 @@
 import sys
 
+import requests
+
 
 def main(argv):
-    print("foooooooo bar")
+    # get a random talk
+    r = requests.get('https://vtalks.net/api/talk/')
+
+    print(r.json())
 
 
 if __name__ == "__main__":
