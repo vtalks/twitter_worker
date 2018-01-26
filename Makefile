@@ -1,3 +1,5 @@
+VERSION=`cat VERSION`
+
 # Docker container images
 
 .PHONY: docker-build
