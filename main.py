@@ -1,4 +1,5 @@
 import sys
+import time
 
 import schedule
 import requests
@@ -13,6 +14,7 @@ def tweet_content(talk_json):
 
 
 def job():
+    print("Get a random talk ...")
     # get a random talk
     r = requests.get('https://vtalks.net/api/random-talk')
     if r.status_code != 200:
@@ -26,13 +28,17 @@ def job():
 
     print("TWEET:", content)
 
+    print("Tweeted.")
+
 
 def main(argv):
-    print('Get a random talk ...')
+    print('Starting twitter-worker ...')
 
-    schedule.every().hours(6).do(job)
+    schedule.every().minute.do(job)
 
-    print("Tweeted.")
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 if __name__ == "__main__":
