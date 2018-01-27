@@ -1,8 +1,10 @@
+import os
 import sys
 import time
 
 import schedule
 import requests
+import tweepy
 
 
 def tweet_content(talk_json):
@@ -16,7 +18,7 @@ def tweet_content(talk_json):
 def job():
     print("Get a random talk ...")
     # get a random talk
-    r = requests.get('https://vtalks.net/api/random-talk')
+    r = requests.get('https://vtalks.net/api/random-talk/')
     if r.status_code != 200:
         print("Can't fetch a random talk, response status code is",
               r.status_code)
@@ -24,17 +26,29 @@ def job():
 
     talk_json = r.json()
 
+    TLKSIO_TWITTER_TOKEN = os.environ['TLKSIO_TWITTER_TOKEN']
+    TLKSIO_TWITTER_SECRET = os.environ['TLKSIO_TWITTER_SECRET']
+    TLKSIO_TWITTER_ACCESS_TOKEN = os.environ['TLKSIO_TWITTER_ACCESS_TOKEN']
+    TLKSIO_TWITTER_ACCESS_SECRET = os.environ['TLKSIO_TWITTER_ACCESS_SECRET']
+
+    auth = tweepy.OAuthHandler(TLKSIO_TWITTER_TOKEN, TLKSIO_TWITTER_SECRET)
+    auth.set_access_token(TLKSIO_TWITTER_ACCESS_TOKEN, TLKSIO_TWITTER_ACCESS_SECRET)
+
+    twitter = tweepy.API(auth)
+
     content = tweet_content(talk_json)
 
-    print("TWEET:", content)
+    status = twitter.update_status(content)
 
-    print("Tweeted.")
+    print("TWEET:", status)
 
 
 def main(argv):
     print('Starting twitter-worker ...')
 
-    schedule.every().minute.do(job)
+    job()
+
+    schedule.every(6).hours.do(job)
 
     while True:
         schedule.run_pending()
