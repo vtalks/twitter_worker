@@ -8,7 +8,16 @@ import requests
 import tweepy
 
 
-def tweet_content(talk_json):
+def get_random_talk():
+    logging.debug("Get a random talk ...")
+    r = requests.get('https://vtalks.net/api/random-talk/')
+    if r.status_code != 200:
+        logging.error("Can't fetch a random talk, response status code is", r.status_code)
+        return
+    return r.json()
+
+
+def generate_tweet_content(talk_json):
     content = ""
     content += talk_json["title"]
     content += " "
@@ -16,42 +25,32 @@ def tweet_content(talk_json):
     return content
 
 
-def job():
-    logging.info("Get a random talk ...")
-    # get a random talk
-    r = requests.get('https://vtalks.net/api/random-talk/')
-    if r.status_code != 200:
-        logging.debug("Can't fetch a random talk, response status code is",
-              r.status_code)
-        exit(1)
-
-    talk_json = r.json()
-
+def post_tweet(tweet_content):
     TLKSIO_TWITTER_TOKEN = os.environ['TLKSIO_TWITTER_TOKEN']
     TLKSIO_TWITTER_SECRET = os.environ['TLKSIO_TWITTER_SECRET']
     TLKSIO_TWITTER_ACCESS_TOKEN = os.environ['TLKSIO_TWITTER_ACCESS_TOKEN']
     TLKSIO_TWITTER_ACCESS_SECRET = os.environ['TLKSIO_TWITTER_ACCESS_SECRET']
+    twitter_auth = tweepy.OAuthHandler(TLKSIO_TWITTER_TOKEN, TLKSIO_TWITTER_SECRET)
+    twitter_auth.set_access_token(TLKSIO_TWITTER_ACCESS_TOKEN, TLKSIO_TWITTER_ACCESS_SECRET)
+    twitter = tweepy.API(twitter_auth)
+    return twitter.update_status(tweet_content)
 
-    auth = tweepy.OAuthHandler(TLKSIO_TWITTER_TOKEN, TLKSIO_TWITTER_SECRET)
-    auth.set_access_token(TLKSIO_TWITTER_ACCESS_TOKEN, TLKSIO_TWITTER_ACCESS_SECRET)
 
-    twitter = tweepy.API(auth)
-
-    content = tweet_content(talk_json)
-
-    status = twitter.update_status(content)
-
-    print("TWEET:", status)
+def job():
+    talk_json = get_random_talk()
+    if not talk_json:
+        return
+    logging.debug(talk_json)
+    tweet_content = generate_tweet_content(talk_json)
+    status = post_tweet(tweet_content)
+    logging.debug("TWEET:", status)
 
 
 def main(argv):
     logging.basicConfig(level=logging.DEBUG)
     logging.info('Starting twitter-worker ...')
-
     job()
-
     schedule.every(6).hours.do(job)
-
     while True:
         schedule.run_pending()
         time.sleep(1)
