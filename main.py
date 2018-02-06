@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import logging
 
 import schedule
 import requests
@@ -16,11 +17,11 @@ def tweet_content(talk_json):
 
 
 def job():
-    print("Get a random talk ...")
+    logging.info("Get a random talk ...")
     # get a random talk
     r = requests.get('https://vtalks.net/api/random-talk/')
     if r.status_code != 200:
-        print("Can't fetch a random talk, response status code is",
+        logging.debug("Can't fetch a random talk, response status code is",
               r.status_code)
         exit(1)
 
@@ -44,7 +45,8 @@ def job():
 
 
 def main(argv):
-    print('Starting twitter-worker ...')
+    logging.basicConfig(level=logging.DEBUG)
+    logging.info('Starting twitter-worker ...')
 
     job()
 
