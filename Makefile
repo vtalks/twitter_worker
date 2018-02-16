@@ -1,5 +1,7 @@
 VERSION=`cat VERSION`
 
+default: help
+
 # Docker container images
 
 .PHONY: docker
