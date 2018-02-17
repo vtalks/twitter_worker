@@ -2,6 +2,20 @@ VERSION=`cat VERSION`
 
 default: help
 
+# Test
+
+.PHONY: test
+test:	## Execute tests suites
+	python3 test_worker.py
+
+.PHONY: cover
+cover:	## Generate coverage information
+	coverage3 run test_worker.py
+
+.PHONY: coverage-html
+coverage-html:	## HTML report
+	coverage3 html --omit="*.venv*" -d .cover
+
 # Docker container images
 
 .PHONY: docker
