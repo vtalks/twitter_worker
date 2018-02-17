@@ -12,6 +12,7 @@ from slugify import slugify
 
 TWITTER_TWEET_LIMIT = 140
 
+
 def get_random_talk():
     logging.debug("Get a random talk ...")
     r = requests.get('https://vtalks.net/api/random-talk/')

@@ -2,6 +2,12 @@ VERSION=`cat VERSION`
 
 default: help
 
+# Test
+
+.PHONY: test
+test:
+	python3 main_test.py
+
 # Docker container images
 
 .PHONY: docker
