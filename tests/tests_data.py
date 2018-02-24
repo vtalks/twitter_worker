@@ -1,5 +1,8 @@
 import json
 
+fake_empty_talk_json = json.loads("""{
+}""")
+
 fake_talk_json = json.loads("""{
     "id": 3637,
     "code": "2nQMwvW4buU",
