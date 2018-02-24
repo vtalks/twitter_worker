@@ -15,7 +15,6 @@ jobs:
       - run:
           command: |
             . .venv/bin/activate
-            cd web
             make test
             make cover
             make coveralls
