@@ -14,7 +14,7 @@ cover:	## Generate coverage information
 
 .PHONY: coverage-html
 coverage-html:	## HTML report
-	coverage3 html --omit="*.venv*" -d .cover
+	coverage3 html --omit="/Users/raul/Projects/vtalks/.venv*" -d .cover
 
 # Docker container images
 
