@@ -1,7 +1,7 @@
 import unittest
 
 
-class TwitterWorkerTest(unittest.TestCase):
+class WorkerTest(unittest.TestCase):
 
     def test_dummy(self):
         self.assertEqual(True, True)

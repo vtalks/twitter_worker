@@ -15,7 +15,7 @@ cover:	## Generate coverage information
 
 .PHONY: coverage-html
 coverage-html:	cover ## HTML report
-	coverage3 html --directory=.cover --omit=*.venv*,*tests*,main.py
+	coverage3 html --directory=.cover --omit=*.venv*,main.py
 
 .PHONY: coveralls
 coveralls:	## Coverage to coveralls report
