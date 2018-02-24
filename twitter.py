@@ -34,5 +34,5 @@ def generate_tweet_content(talk_json):
 def post_tweet(tweet_content):
     twitter_auth = tweepy.OAuthHandler(settings.TLKSIO_TWITTER_TOKEN, settings.TLKSIO_TWITTER_SECRET)
     twitter_auth.set_access_token(settings.TLKSIO_TWITTER_ACCESS_TOKEN, settings.TLKSIO_TWITTER_ACCESS_SECRET)
-    twitter = tweepy.API(twitter_auth)
-    return twitter.update_status(tweet_content)
+    t = tweepy.API(twitter_auth)
+    return t.update_status(tweet_content)

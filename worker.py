@@ -12,9 +12,26 @@ def job():
     talk_json = get_random_talk()
     if not talk_json:
         return
+
+    logging.debug("Talk id:{} title:{} url:{} tags:{}".format(
+        talk_json['id'],
+        talk_json['title'],
+        talk_json['youtube_url'],
+        ",".join(talk_json['tags']),
+    ))
+
     tweet_length,  tweet_content = generate_tweet_content(talk_json)
+
+    logging.debug("Create {} chars tweet: {}".format(
+        tweet_length,
+        tweet_content
+    ))
+
     status = post_tweet(tweet_content)
-    logging.debug(status)
+
+    logging.debug("Tweet published successfully id:{}".format(
+        status.id_str
+    ))
 
 
 def main(argv):
