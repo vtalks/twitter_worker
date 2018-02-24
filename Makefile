@@ -14,7 +14,7 @@ cover:	## Generate coverage information
 	coverage3 run --omit=*.venv*,main.py --source=. -m unittest discover
 
 .PHONY: coverage-html
-coverage-html:	## HTML report
+coverage-html:	cover ## HTML report
 	coverage3 html --directory=.cover --omit=*.venv*,*tests*,main.py
 
 .PHONY: coveralls

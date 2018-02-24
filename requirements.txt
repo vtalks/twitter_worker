@@ -4,3 +4,4 @@ schedule
 tweepy
 awesome-slugify
 python-coveralls
+mock
