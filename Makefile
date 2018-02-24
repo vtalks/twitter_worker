@@ -6,15 +6,16 @@ default: help
 
 .PHONY: test
 test:	## Execute tests suites
-	python3 tests_worker.py
+	python3 -m unittest
+
 
 .PHONY: cover
 cover:	## Generate coverage information
-	coverage3 run --omit=*tests_*,*.venv* --source=. tests_worker.py
+	coverage3 run --omit=*.venv* --source=. -m unittest
 
 .PHONY: coverage-html
 coverage-html:	## HTML report
-	coverage3 html --directory=.cover --omit=*tests_*,*.venv*
+	coverage3 html --directory=.cover --omit=*.venv*,*tests*
 
 .PHONY: coveralls
 coveralls:	## Coverage to coveralls report
