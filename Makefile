@@ -6,15 +6,19 @@ default: help
 
 .PHONY: test
 test:	## Execute tests suites
-	python3 test_worker.py
+	python3 tests_worker.py
 
 .PHONY: cover
 cover:	## Generate coverage information
-	coverage3 run test_worker.py
+	coverage3 run --omit=*tests_*,*.venv* --source=. tests_worker.py
 
 .PHONY: coverage-html
 coverage-html:	## HTML report
-	coverage3 html --omit="*.venv*" -d .cover
+	coverage3 html --directory=.cover --omit=*tests_*,*.venv*
+
+.PHONY: coveralls
+coveralls:	## Coverage to coveralls report
+	coveralls --data_file=.coverage --coveralls_yaml=.coveralls.yml --base_dir=.
 
 # Docker container images
 
