@@ -6,7 +6,7 @@ default: help
 
 .PHONY: test
 test:	## Execute tests suites
-	python3 -m unittest discover
+	python3 -m unittest discover -v
 
 
 .PHONY: cover
