@@ -3,3 +3,4 @@ requests
 schedule
 tweepy
 awesome-slugify
+python-coveralls
