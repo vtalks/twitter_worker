@@ -25,7 +25,7 @@ class Worker:
 
         twitter = Twitter()
 
-        tweet_length,  tweet_content = twitter.generate_tweet_content(talk_json)
+        tweet_length, tweet_content = twitter.generate_tweet_content(talk_json)
 
         logging.debug("Tweet {} chars: {}".format(
             tweet_length,
