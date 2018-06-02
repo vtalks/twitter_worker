@@ -5,7 +5,7 @@ from worker import worker
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.ERROR)
     logging.info('Starting twitter-worker ...')
 
     args = sys.argv[1:]

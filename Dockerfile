@@ -5,7 +5,7 @@ ADD requirements.txt /tmp/requirements.txt
 
 RUN apk update && \
   apk upgrade && \
-  apk add --no-cache python3 py3-psycopg2 git && \
+  apk add --no-cache gcc python3 py3-psycopg2 python3-dev musl-dev git && \
   pip3 install -r /tmp/requirements.txt && \
   rm -rf /var/cache/apk/*
 
