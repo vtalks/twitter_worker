@@ -18,8 +18,8 @@ class Twitter:
         # https://help.twitter.com/en/using-twitter/how-to-tweet-a-link
         tweet_length += 23
 
-        # If there are remaining chars, add talk have tags, add them to the tweet,
-        # starting from small to big by length.
+        # If there are remaining chars, add talk have tags, add them to the
+        # tweet, starting from small to big by length.
         if talk_json["tags"]:
             tags = sorted(talk_json["tags"], key=len)
             for tag in tags:

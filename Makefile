@@ -1,7 +1,5 @@
 VERSION=`cat VERSION`
 
-default: help
-
 # Test
 
 .PHONY: test
@@ -39,3 +37,5 @@ docker-publish:	## Publishes container images
 .PHONY: help
 help:	## Show this help
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+
+.DEFAULT_GOAL: help

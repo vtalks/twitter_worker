@@ -34,9 +34,7 @@ class Worker:
 
         status = twitter.post_tweet(tweet_content)
 
-        logging.debug("Tweet published successfully id:{}".format(
-            status.id_str
-        ))
+        logging.info("Shared talk '{} {}' on Twitter successfully.".format(talk_json["id"], talk_json["title"]))
 
     def run(self, argv):
         schedule.every(6).hours.do(self.job)

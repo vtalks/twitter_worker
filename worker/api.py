@@ -12,8 +12,6 @@ class API:
         return file.read().rstrip("\n")
 
     def get_random_talk(self):
-        logging.info("Get a random talk from the API")
-
         headers = {'user-agent': 'vtalks/updater-worker/' + self.get_version()}
         resp = requests.get(settings.VTALKS_API_RANDOM_TALK_URL, headers=headers)
         if resp.status_code != 200:
